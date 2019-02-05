@@ -1,4 +1,5 @@
-int intensity=0;
+float intensity=3;
+float amplitude;
 float change = 2.55;
 int pot_pin = A0;
 int no_intensity = 0;
@@ -7,10 +8,10 @@ int led_2 = 5;
 int led_3 = 6;
 int led_4 = 10;
 int led_5 = 11;
-
 int ledPins[] = {3,5,6,10,11};
-
 int start;
+
+#define PI 3.1415926535897932384626433832795
 
 
 void setup() {
@@ -26,19 +27,23 @@ void loop() {
   // read if pot has been turned on
   
   start = map (analogRead(pot_pin), 0, 1023, 0, 255);
-  Serial.println(start);
+  //Serial.println(start);
   
   // if the pot is turned on, fade in and out
   if (start>0){
-      if (intensity <= 0 || intensity >= start){
+      if (intensity < 0 || intensity >= start){
       change = -change;
     }
-  delay(500);
+  delay(100);
 
   intensity += change;
+
+  amplitude = start * sin(PI * intensity/255);
+  Serial.println(amplitude);
+ 
   
   for (int i = 0; i<5; i++){    
-    analogWrite(ledPins[i], intensity);
+    analogWrite(ledPins[i], amplitude);
     }
  
   }
