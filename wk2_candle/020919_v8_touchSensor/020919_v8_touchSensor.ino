@@ -2,6 +2,12 @@
   Candle
   Light & Interactivity Class
   Emily Lin
+
+  02/09/19
+
+  Notes: 
+  - this one has all the different states, but is with a touch sensor
+  - need to replace with accelerometer
 */
 
 
