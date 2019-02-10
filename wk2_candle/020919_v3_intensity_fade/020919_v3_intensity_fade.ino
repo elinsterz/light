@@ -18,8 +18,9 @@ SimpleTimer timer;
  
 const int neoPixelPin = 5;   // control pin
 const int pixelCount = 7;    // number of pixels
-int change = 15;              // increment to change hue by
-int onePixel = 0;            // one pixel
+int change = 5;              // increment to change hue by
+int centerPixel = 0;              // center pixel
+int pixels[] = {0,1,2,3,4,5,6};   // all pixels
  
 int h = 25;         // hue
 int s = 100;        // saturation
@@ -54,10 +55,17 @@ void loop() {
   // create a single color from hue, sat, intensity:
   RGBColor color = converter.HSItoRGB(h, s, i);
 
-  // set the color for this pixel
-  strip.setPixelColor(onePixel, color.red, color.green, color.blue);    
-  strip.show();   // update the strip
+  //for loop to go through elements of pixel array
+  for (int j= 0; j<7; j++){
+    strip.setPixelColor(pixels[j], color.red, color.green, color.blue);    
+    strip.show();   // update the strip
+  }
+
+//  // set the color for this pixel
+//  strip.setPixelColor(centerPixel, color.red, color.green, color.blue);    
+//  strip.show();   // update the strip
   delay(100);
+
 
   // fade intensity:
   i = i + change;
@@ -65,6 +73,7 @@ void loop() {
     change = -change;
   }
 
+  
 
   // fade hue:
 //  h = h + change;
