@@ -127,21 +127,21 @@ void loop() {
     Serial.println("crazy");
     
   } 
-    // else if acc y is > 1 or < 0 AND acc x is < 1, go to wild state
-    else if ((event.acceleration.y > 1 || event.acceleration.y < 0) && (event.acceleration.x < 1)) {
+    // else if acc z is < 2  or acc z is > 10, go to wild
+    else if (event.acceleration.z >10) {
       wildState(iWild);
       Serial.println("wild state");
 
-    // if sensor is pressed for 5 seconds, turn leds off
-    int timerId = timer.setTimer(5000, offState, 1);
+      // if sensor is pressed for 5 seconds, turn leds off
+      int timerId = timer.setTimer(5000, offState, 1);
       
   } else {
   
   //else it is normal, calm state
     normalState(calmChange, calmLowerRange, calmUpperRange);
     Serial.println("calm state");
+  }
 }
-
 
 /*///////// PREVIOUS CODE WITH TOUCH SENSOR //////////*/
 
