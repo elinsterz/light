@@ -87,7 +87,7 @@ void setup() {
  
 void loop() {
 
-  /*///////// ACCELEROMETER READING //////////*/
+  /*///////// ACCELEROMETER READING & SETUP //////////*/
   /* Taken from MMA8451 demo, serial print the acceleration values. Read the 'raw' data in 14-bit counts */
   
   mma.read();
@@ -109,34 +109,63 @@ void loop() {
   /* Get the orientation of the sensor */
   uint8_t o = mma.getOrientation();
   
-  // variable for intensity of "wild" state 
+  // array of variables for intensity of "wild" state 
   int iWild[] = {random(0,5),random(0,50),random(0,5),random(0,50),random(0,5),random(0,50),random(0,5)};
 
   // run timer
   timer.run();
+  
+  
+  /*///////// ACCELEROMETER //////////*/
+  // if statements that respond to accelerometer settings
 
-  // print sensor value 
-  int sensorValue = analogRead(sensorPin);
-  Serial.println(sensorValue);
+  // if acc y is > 2 or < 0, go to normal,crazy state
+   if ((event.acceleration.y > 2) || (event.acceleration.y < 0)){
+    
+    //pass crazy state values into function normal state
+    normalState(crazyChange, crazyLowerRange, crazyUpperRange);
+    Serial.println("crazy");
+    
+  } 
+    // else if acc y is > 1 or < 0 AND acc x is < 1, go to wild state
+    else if ((event.acceleration.y > 1 || event.acceleration.y < 0) && (event.acceleration.x < 1)) {
+      wildState(iWild);
+      Serial.println("wild state");
 
-  // if sensor is  pressed, state is crazy
-  if(sensorValue >= 1){
-    //pass iWild intensity into function
-    wildState(iWild);
-    
-    //normalState(crazyChange, crazyLowerRange, crazyUpperRange);
-    Serial.println("wild state");
-    
     // if sensor is pressed for 5 seconds, turn leds off
     int timerId = timer.setTimer(5000, offState, 1);
-  } 
-
-  // if sensor is not pressed, state is calm
-  if(sensorValue == 0){
+      
+  } else {
+  
+  //else it is normal, calm state
     normalState(calmChange, calmLowerRange, calmUpperRange);
     Serial.println("calm state");
-  } 
 }
+
+
+/*///////// PREVIOUS CODE WITH TOUCH SENSOR //////////*/
+
+//  // print sensor value 
+//  int sensorValue = analogRead(sensorPin);
+//  Serial.println(sensorValue);
+//
+//  // if sensor is  pressed, state is crazy
+//  if(sensorValue >= 1){
+//    //pass iWild intensity into function
+//    wildState(iWild);
+//    
+//    //normalState(crazyChange, crazyLowerRange, crazyUpperRange);
+//    Serial.println("wild state");
+//    
+//    // if sensor is pressed for 5 seconds, turn leds off
+//    int timerId = timer.setTimer(5000, offState, 1);
+//  } 
+//
+//  // if sensor is not pressed, state is calm
+//  if(sensorValue == 0){
+//    normalState(calmChange, calmLowerRange, calmUpperRange);
+//    Serial.println("calm state");
+//  } 
 
 
 /*///////// NORMAL STATE //////////*/
