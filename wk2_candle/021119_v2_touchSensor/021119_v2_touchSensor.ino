@@ -77,7 +77,7 @@ void loop() {
   Serial.println(sensorValue);
 
   // if sensor is  pressed, state is crazy
-  if(sensorValue >= 1){
+  if(sensorValue >= 1023){
     //pass iWild intensity into function
     wildState(iWild);
     
@@ -85,20 +85,25 @@ void loop() {
     Serial.println("wild state");
     
     // if sensor is pressed for 5 seconds, turn leds off
-    while(sensorValue >=1){
 
-      int start_time = millis();
+      long unsigned start_time = millis();
 
-      if (millis() - start_time >=  3){
-
+      // Serial.println("Time is");
+       //Serial.println(start_time);
+        Serial.print("Start time");
+        Serial.println(start_time);
+        Serial.print("current time");
+        Serial.println(millis());
+      if (millis() - start_time >=  3000){
+        Serial.println("off state");
          offState();
+         delay(5000);
 
       }
 
     }
 
-    
-  } 
+     
 
   // if sensor is not pressed, state is calm
   if(sensorValue == 0){
