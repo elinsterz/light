@@ -3,6 +3,8 @@
   Light & Interactivity Class
   Emily Lin
   02/12/19
+
+  
   Notes:
   - changed plans after deciding that accelerometer was not a great interaction
   - went back to touch sensor
