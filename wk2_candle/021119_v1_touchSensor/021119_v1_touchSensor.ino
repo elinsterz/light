@@ -2,6 +2,10 @@
   Candle
   Light & Interactivity Class
   Emily Lin
+  02/11/19
+  Notes: 
+  - changed plans after deciding that accelerometer was not a great interaction
+  - went back to touch sensor 
 */
 
 
@@ -33,6 +37,8 @@ int crazyChange[] = {1,5,15,50,5,15,50};              // increments for change
 int crazyLowerRange[] = {50,0,40,60,0,40,60};       // values for lower range
 int crazyUpperRange[] = {100,40,80,100,40,80,100};    // values for upper range
 
+//off values
+int iOff[] = {0,0,0,0,0,0,0};
 
 
 // set up strip:
@@ -69,9 +75,14 @@ void loop() {
 
   // if sensor is  pressed, state is crazy
   if(sensorValue >= 1){
+    //pass iWild intensity into function
     wildState(iWild);
+    
     //normalState(crazyChange, crazyLowerRange, crazyUpperRange);
     Serial.println("wild state");
+    
+    // if sensor is pressed for 5 seconds, turn leds off
+    int timerId = timer.setTimer(5000, offState, 1);
   } 
 
   // if sensor is not pressed, state is calm
@@ -110,4 +121,18 @@ void wildState(long intensityW[]){
     strip.setPixelColor(pixels[j], color.red, color.green, color.blue);    
     strip.show();   // update the strip
   }
+}
+
+void offState(){
+  int iOff = 0;
+  
+  //for loop to go through elements of pixel array
+  for (int j= 0; j<7; j++){
+    // create a single color from hue, sat, intensity:
+    RGBColor color = converter.HSItoRGB(0, 0, iOff);
+    
+    strip.setPixelColor(pixels[j], color.red, color.green, color.blue);    
+    strip.show();   // update the strip
+  }
+  delay(1000);
 }

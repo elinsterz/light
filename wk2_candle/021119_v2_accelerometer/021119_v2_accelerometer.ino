@@ -24,7 +24,7 @@ Adafruit_MMA8451 mma = Adafruit_MMA8451();
 // the timer object
 SimpleTimer timer;
 
-int sensorPin = A0;               //touch sensor for now
+//int sensorPin = A0;               //touch sensor for now
 
 const int neoPixelPin = 5;        // control pin
 const int pixelCount = 7;         // number of pixels
