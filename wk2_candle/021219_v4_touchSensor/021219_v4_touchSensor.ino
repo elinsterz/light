@@ -32,8 +32,8 @@ int i[] = {50, 50, 50, 50, 50, 50, 50};      // intensity
 
 //calm values
 int calmChange[] = {1, 2, 6, 2, 6, 2, 6};           // increments for change
-int calmLowerRange[] = {80, 10, 20, 10, 20, 10, 20}; // values for lower range
-int calmUpperRange[] = {100, 50, 70, 50, 70, 50, 70}; // values for upper range
+int calmLowerRange[] = {50, 5, 20, 5, 20, 5, 20}; // values for lower range
+int calmUpperRange[] = {100, 25, 50, 25, 50, 25, 50}; // values for upper range
 
 //crazy values
 int crazyChange[] = {1, 5, 15, 50, 5, 15, 50};        // increments for change
@@ -110,7 +110,7 @@ void loop() {
     Serial.println(secs_held);
 
     // If the button was held for 5 seconds go from wild to off state  
-    if (secs_held >= 4) {
+    if (secs_held >= 3) {
 
       offState();
       Serial.println("offState state");
@@ -170,5 +170,5 @@ void offState() {
     strip.setPixelColor(pixels[j], color.red, color.green, color.blue);
     strip.show();   // update the strip
   }
-  delay(1000);
+  delay(8000);
 }
