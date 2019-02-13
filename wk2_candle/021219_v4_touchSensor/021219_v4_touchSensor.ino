@@ -109,7 +109,7 @@ void loop() {
     Serial.println("seconds held: ");
     Serial.println(secs_held);
 
-    // If the button was held for 5 seconds go from wild to off state  
+    // If the button was held for 3 seconds go from wild to off state  
     if (secs_held >= 3) {
 
       offState();
