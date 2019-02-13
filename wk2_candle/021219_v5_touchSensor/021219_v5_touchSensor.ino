@@ -28,7 +28,7 @@ int pixels[] = {0, 1, 2, 3, 4, 5, 6}; // all pixels
 
 int h[] = {10, 15, 20, 15, 20, 15, 20};      // hue
 int s = 100;                                 // saturation
-int i[] = {80, 30, 10, 30, 30, 10, 30};      // intensity
+int i[] = {80, 30, 5, 30, 30, 5, 30};      // intensity
 
 //calm values
 int calmChange[] = {1, 2, 8, 2, 8, 2, 8};           // increments for change
@@ -79,7 +79,7 @@ void setup() {
 void loop() {
 
   // variable for intensity of "wild" state
-  long iWild[] = {random(0, 30), random(0, 6), random(0, 1), random(0, 2), random(0, 6), random(0, 1), random(0, 2)};
+  long iWild[] = {random(0, 10), random(0, 0), random(0, 5), random(0, 0), random(0, 5), random(0, 0), random(0, 5)};
 
   // run timer (maybe not neccesary?)
   //timer.run();

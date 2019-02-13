@@ -79,7 +79,7 @@ void setup() {
 void loop() {
 
   // variable for intensity of "wild" state
-  long iWild[] = {random(0, 5), random(0, 50), random(0, 5), random(0, 50), random(0, 5), random(0, 50), random(0, 5)};
+  long iWild[] = {random(0, 0), random(0, 20), random(0, 0), random(0, 10), random(0, 5), random(0, 0), random(0, 5)};
 
   // run timer (maybe not neccesary?)
   //timer.run();
