@@ -7,7 +7,7 @@
 int sensor_pin = A0;
 int led_1 = 8;
 int led_2 = 10;
-int high_watt_led = 4;
+int high_watt_led = 3;
 
 int touch_state;
 
@@ -24,6 +24,7 @@ void loop() {
   // if sensor pin is pressed, turn on high watt led
   if (touch_state == 1023){
     digitalWrite(high_watt_led, HIGH);
+    Serial.println("high");
   } else {
     digitalWrite(high_watt_led, LOW);
   }
@@ -40,6 +41,5 @@ void loop() {
   // serial print touch state
   Serial.print("touch state: ");
   Serial.println(touch_state);
-  Serial.print("high_watt_led: ");  
-  Serial.println(high_watt_led); 
+  
 }
