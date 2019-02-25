@@ -5,13 +5,13 @@
  *
     Ultrasonic sensor Pins:
         VCC: +5VDC
-        Trig : Trigger (INPUT) - Pin11
-        Echo: Echo (OUTPUT) - Pin 12
+        Trig : Trigger (INPUT) - Pin12
+        Echo: Echo (OUTPUT) - Pin 11
         GND: GND
  */
  
-int trigPin = 11;    // Trigger
-int echoPin = 12;    // Echo
+int trigPin = 12;    // Trigger
+int echoPin = 11;    // Echo
 long duration, cm, inches;
  
 void setup() {
@@ -26,9 +26,9 @@ void loop() {
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
   digitalWrite(trigPin, LOW);
-  delayMicroseconds(5);
+  delay(5);
   digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
+  delay(10);
   digitalWrite(trigPin, LOW);
  
   // Read the signal from the sensor: a HIGH pulse whose
