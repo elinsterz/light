@@ -17,10 +17,10 @@ void setup() {
 
 void loop() {
   digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(200);
 
   digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(100);
   digitalWrite(trigPin, LOW);
 
   // high means pulsing function will wait for the pin to go high caused by the bounce soundwave
