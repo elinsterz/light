@@ -1,3 +1,5 @@
+/* Not sure if i will use ultrasonic anymore
+ 
 /* Ultrasonic Code not my own!
     Code from tutorial:
     https://www.youtube.com/watch?v=ZejQOX69K5M
