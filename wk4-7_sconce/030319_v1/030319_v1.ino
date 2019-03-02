@@ -26,9 +26,10 @@ void loop() {
   if (touch_state == 1023) {
     digitalWrite(high_watt_led, HIGH);
     Serial.println("high");
-    tone(speaker_pin,100);  
+    tone(speaker_pin,300, 4);  
   } else {
     digitalWrite(high_watt_led, LOW);
+    noTone(speaker_pin);
   }
 
   /*
