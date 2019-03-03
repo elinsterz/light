@@ -3,6 +3,7 @@
     Emily Lin
 
     Notes: When button is pressed the speaker will beep for 1 second
+    Next Step: Make tune
 */
 
 
