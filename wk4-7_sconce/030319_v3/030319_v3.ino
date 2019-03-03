@@ -21,7 +21,7 @@ void beep_off(){
 void beep_on(){
   tone(speaker_pin,300); 
   Serial.println("beep on");
-  timer.setTimeout(1, beep_off); // turn off after 1 second
+//  timer.setTimeout(1, beep_off); // turn off after 1 second
 }
 
 void setup() {
@@ -34,13 +34,20 @@ void setup() {
 void loop() {
   touch_state = analogRead(sensor_pin);
 
+  starttime = millis();
+  endtime = starttime;
+
+  while((endtime - starttime <= 1000) {
+    beep_on();
+    endtime = millis();
+  }
+
   // if sensor pin is pressed, turn on high watt led
   // if sensor pin is pressed, speaker pin beeps
   if (touch_state == 1023) {
     digitalWrite(high_watt_led, HIGH);
     Serial.println("high");
 
-    timer.setTimeout(1, beep_on);
  
     //tone(speaker_pin,300);  
   } else {
