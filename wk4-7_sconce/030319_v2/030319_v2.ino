@@ -20,10 +20,8 @@ void beep_off(){
 //function is called only once
 void beep_on(){
   tone(speaker_pin,300); 
-  delay(500);
-  beep_off();
-  Serial.println("beep only once");
-  //timer.setTimeout(1000, beep_off); // turn off after 1 second
+  Serial.println("beep on");
+  timer.setTimeout(1000, beep_off); // turn off after 1 second
 }
 
 void setup() {
