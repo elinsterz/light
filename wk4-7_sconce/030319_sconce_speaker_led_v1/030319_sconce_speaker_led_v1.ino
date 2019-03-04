@@ -1,5 +1,5 @@
 /* Key Sconce: Touch Sensor + Speaker
-    03/03/19
+    03/04/19 (Monday)
     Emily Lin
 
     Notes: When button is pressed the speaker will beep for 1 second
@@ -10,7 +10,7 @@
 
 int sensor_pin = A0;
 int high_watt_led = 3;
-int speaker_pin = 8; 
+int speaker_pin = 9; //PWM pin to control the volume through Pulse Width
 
 int touch_state;
 int counter;
