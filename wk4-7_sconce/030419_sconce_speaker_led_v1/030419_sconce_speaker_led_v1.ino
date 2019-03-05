@@ -65,7 +65,7 @@ void loop() {
   // if counter is less than 2 seconds
   if(counter < 2){
     Serial.println(counter); 
-    beep_on(); //start beeps
+    //beep_on(); //start beeps
     delay(1000); 
   } else {
     beep_off(); //stop beeps
@@ -85,11 +85,13 @@ void beep_off(){
   Serial.println("beep off");
 }
 
+/*
 //function for beeping
 void beep_on(){
   tone(speaker_pin,300); 
   Serial.println("beep on");
 }
+*/
 
 void play_melody(){
   // iterate over the notes of the melody:
@@ -98,8 +100,8 @@ void play_melody(){
 
     // to calculate the note duration, take one second divided by the note type.
     //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-    int noteDuration = 1000 / noteDurations[thisNote];
-    tone(speaker_pin, melody[thisNote], noteDuration);
+    int noteDuration = 1000 / noteDurations[this_note];
+    tone(speaker_pin, melody[this_note], noteDuration);
 
     // to distinguish the notes, set a minimum time between them.
     // the note's duration + 30% seems to work well:
@@ -108,4 +110,5 @@ void play_melody(){
     
     // stop the tone playing:
     noTone(speaker_pin);
+  }
 }
