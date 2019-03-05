@@ -23,6 +23,7 @@
 
 #include "pitches.h"
 
+
 int sensor_pin = A0;
 int high_watt_led = 3;
 int speaker_pin = 11; //PWM pin to control the volume through Pulse Width
@@ -30,9 +31,13 @@ int number_of_notes = 11; //number of notes played in melody
 
 int touch_state; // touch state is analog read of touch sensor
 int counter;
-int brightness = 1;  //brightness of led
-int fade_step = 5;   //fade increments 
+int brightness = 0;  //brightness of led
 
+//var for fade
+float intensity = 3;
+float amplitude;
+float change = 2.55;
+int start;
 
 // notes in the melody
 int melody[] = {
@@ -49,22 +54,19 @@ void setup() {
   Serial.begin(9600);
   pinMode(high_watt_led, OUTPUT);
   pinMode(speaker_pin, OUTPUT);
+  start = true;
 }
 
 void loop() {
   //analog read for the touch sensor
   touch_state = analogRead(sensor_pin);
 
+
   //if button is pressed, start counting
   if (touch_state == 1023) {
-    // change the brightness for next time through the loop:
-    brightness = brightness + fade_step;
-    Serial.println(brightness);
-    
-    //set the brightness of led
-    analogWrite(high_watt_led, brightness);
+    //turn led on
+    digitalWrite(high_watt_led, HIGH);
 
-    //start counting
     Serial.println("button pressed");
     counter++; // add to counter
 
