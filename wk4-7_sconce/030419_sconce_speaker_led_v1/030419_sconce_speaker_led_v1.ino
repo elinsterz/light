@@ -55,18 +55,17 @@ void loop() {
  if (touch_state == 1023){
   //turn led on
   digitalWrite(high_watt_led, HIGH);
-
-  //play melody
-  play_melody();
   
   Serial.println("button pressed");
   counter++; // add to counter
   
-  // if counter is less than 2 seconds
+  // if counter is less than 2 seconds:
   if(counter < 2){
+    
     Serial.println(counter); 
-    //beep_on(); //start beeps
+    play_melody(); //play melody
     delay(1000); 
+ 
   } else {
     beep_off(); //stop beeps
   }
