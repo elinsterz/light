@@ -84,14 +84,6 @@ void beep_off(){
   Serial.println("beep off");
 }
 
-/*
-//function for beeping
-void beep_on(){
-  tone(speaker_pin,300); 
-  Serial.println("beep on");
-}
-*/
-
 void play_melody(){
   // iterate over the notes of the melody:
   int this_note;
