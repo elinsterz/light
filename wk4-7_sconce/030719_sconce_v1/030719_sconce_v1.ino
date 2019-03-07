@@ -34,10 +34,12 @@ int counter;
 int brightness = 0;  //brightness of led
 
 //var for fade
-float intensity=3;
+float increment=3;
 float amplitude;
 float change = 2.55;
 int start;
+int intensity = 0;
+int off = 0;
 
 // for sine fade in
 #define PI 3.1415926535897932384626433832795
@@ -65,20 +67,20 @@ void loop() {
   //analog read for the touch sensor
   touch_state = analogRead(sensor_pin);
 
+  //conditions for fading
+  intensity += increment;
+  Serial.println(intensity);
+
+  if (intensity >= 255 || intensity <= 0) {    
+     increment = -increment;  
+    } 
+
 
   //if button is pressed, start counting
-  if (touch_state == 1023) {
-
-    //turn led on with fade
-    analogWrite(high_watt_led, amplitude);
-
-    intensity += change;
-    
-    //amplitude 
-    amplitude =  sin(PI * intensity/255);
-    Serial.println(amplitude);
+  if (touch_state == 1023) {  
+      //turn led on by fading
+      analogWrite(high_watt_led, intensity);
  
-
     //turn led on immediately
    // digitalWrite(high_watt_led, HIGH);
     
@@ -88,7 +90,8 @@ void loop() {
     // if counter is less than 2 seconds:
     if (counter < 2) {
 
-      Serial.println(counter);
+      Serial.println(counter); //what is the counter?
+      
       play_melody(); //play melody
       delay(1000);
 
@@ -97,7 +100,7 @@ void loop() {
     }
   } else {
     //turn led off
-    digitalWrite(high_watt_led, LOW);
+    analogWrite(high_watt_led, off);
 
     counter = 0; //reset counter
     beep_off();  //turn beep off
