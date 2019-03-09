@@ -22,7 +22,7 @@
 #include "mpr121.h"
 #include <Wire.h>
 
-int irqpin = 2;  // Digital 2
+int irqpin = 3;  // Digital 3
 boolean touchStates[12]; //to keep track of the previous touch states
 
 void setup(){
@@ -33,24 +33,32 @@ void setup(){
   Wire.begin();
 
   mpr121_setup();
+  Serial.println("does serial work? if this print, yes");
 }
 
 void loop(){
+
+//  Serial.print("IRQ ");
+//  Serial.println(digitalRead(irqpin));
   readTouchInputs();
 }
 
 
 void readTouchInputs(){
   if(!checkInterrupt()){
-    
+    Serial.print("Hey");
     //read the touch state from the MPR121
     Wire.requestFrom(0x5A,2); 
     
     byte LSB = Wire.read();
     byte MSB = Wire.read();
     
+//    Serial.println(LSB);
+//    Serial.println(MSB);
+    
     uint16_t touched = ((MSB << 8) | LSB); //16bits that make up the touch states
 
+    Serial.println(touched);
     
     for (int i=0; i < 12; i++){  // Check what electrodes were pressed
       if(touched & (1<<i)){
