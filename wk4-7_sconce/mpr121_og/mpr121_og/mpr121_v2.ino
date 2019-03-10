@@ -36,30 +36,23 @@ void setup(){
 }
 
 void loop(){
-
-  //Serial.println("IRQ ");
-  //Serial.print(checkInterrupt());
   readTouchInputs();
-
 }
 
 
 void readTouchInputs(){
   if(!checkInterrupt()){
+    
     //read the touch state from the MPR121
     Wire.requestFrom(0x5A,2); 
     
     byte LSB = Wire.read();
     byte MSB = Wire.read();
     
-    
     uint16_t touched = ((MSB << 8) | LSB); //16bits that make up the touch states
 
-    //Serial.println(touched);
     
     for (int i=0; i < 12; i++){  // Check what electrodes were pressed
-
-      
       if(touched & (1<<i)){
       
         if(touchStates[i] == 0){
@@ -70,9 +63,6 @@ void readTouchInputs(){
         
         }else if(touchStates[i] == 1){
           //pin i is still being touched
-          Serial.print("pin ");
-          Serial.print(i);
-          Serial.println(" is still being touched");
         }  
       
         touchStates[i] = 1;      

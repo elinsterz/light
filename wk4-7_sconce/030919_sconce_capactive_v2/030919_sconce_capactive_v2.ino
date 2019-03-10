@@ -1,4 +1,30 @@
-/*Copyright (c) 2010 bildr community
+/* Key Sconce: Capactive Touch Sensor + Speaker
+    03/09/19 (Saturday)
+    Emily Lin
+
+    Interaction Notes:
+    1. if key is on handle:
+    fade light on
+    play tune on speaker
+    animate fade to match with length of tune
+
+    2. if key is not on handle:
+    turn light off
+
+    3. if key is on handle, but room is dark:
+    dim light so it is a night light
+
+    ----
+
+    Melody Code Credits:
+    Arduino, Tom Igoe
+    The melody code is in the public domain. http://www.arduino.cc/en/Tutorial/Tone
+*/
+
+
+
+/* Capactive Touch Code: not my own
+ * Copyright (c) 2010 bildr community
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +49,8 @@
 #include <Wire.h>
 
 int irqpin = 3;  // Digital 3
-boolean touchStates[12]; //to keep track of the previous touch states
+//boolean touchStates[12]; //to keep track of the previous touch states
+boolean touch_state; 
 
 void setup(){
   pinMode(irqpin, INPUT);
@@ -51,47 +78,46 @@ void readTouchInputs(){
     
     byte LSB = Wire.read();
     byte MSB = Wire.read();
-    
+    Serial.println(MSB);
     
     uint16_t touched = ((MSB << 8) | LSB); //16bits that make up the touch states
 
-    //Serial.println(touched);
+    Serial.println(touched);
     
-    for (int i=0; i < 12; i++){  // Check what electrodes were pressed
+    // Check what electrodes were pressed
 
+      if(touched){
       
-      if(touched & (1<<i)){
-      
-        if(touchStates[i] == 0){
+        if(touch_state == 0){
           //pin i was just touched
           Serial.print("pin ");
-          Serial.print(i);
+          Serial.print("11");
           Serial.println(" was just touched");
         
-        }else if(touchStates[i] == 1){
+        }else if(touch_state == 1){
           //pin i is still being touched
           Serial.print("pin ");
-          Serial.print(i);
+          Serial.print("11");
           Serial.println(" is still being touched");
         }  
       
-        touchStates[i] = 1;      
+        touch_state = 1;      
       }else{
-        if(touchStates[i] == 1){
+        if(touch_state == 1){
           Serial.print("pin ");
-          Serial.print(i);
+          Serial.print("11");
           Serial.println(" is no longer being touched");
           
           //pin i is no longer being touched
        }
         
-        touchStates[i] = 0;
+        touch_state = 0;
       }
     
     }
     
   }
-}
+
 
 
 

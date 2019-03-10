@@ -55,11 +55,12 @@ void readTouchInputs(){
     
     uint16_t touched = ((MSB << 8) | LSB); //16bits that make up the touch states
 
-    //Serial.println(touched);
+    Serial.println(touched);
+
     
     for (int i=0; i < 12; i++){  // Check what electrodes were pressed
 
-      
+      Serial.println(touchStates[i]);
       if(touched & (1<<i)){
       
         if(touchStates[i] == 0){
