@@ -88,9 +88,7 @@ void readTouchInputs(){
         
         touchStates[i] = 0;
       }
-    
     }
-    
   }
 }
 
