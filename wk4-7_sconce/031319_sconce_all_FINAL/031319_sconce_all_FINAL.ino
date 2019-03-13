@@ -1,15 +1,16 @@
 /* Key Sconce: Force Sensor + Speaker
-    03/12/19 (Tuesday)
+    03/13/19 (Wednesday)
     Emily Lin
 
     Interaction Notes:
     1. if key is on handle:
     fade light on
-    play tune on speaker
+    play on melody
 
 
     2. if key is not on handle:
     turn light off
+    play off melody
 
     3. if key is on handle, but room is dark:
     dim light so it is a night light
@@ -55,7 +56,7 @@ int melody_off[] = {
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
 int noteDurations_on[] = {
-  2, 2, 8, 8, 4, 8, 8, 4, 8, 4, 4
+  4, 4, 8, 8, 4, 8, 8, 4, 8, 4, 4
 };
 
 int noteDurations_off[] = {
@@ -84,49 +85,48 @@ void loop() {
 
     //  Serial.println(touch_state);
 
-    //if button is pressed, start counting
+    //if FSR is pressed, start counting
     if (touch_state >= 100) {
-      //turn led on
-      analogWrite(high_watt_led, counter + 1);
-
-      delay(200);
-      Serial.println("button pressed");
-      counter++; // add to counter
-
       // if counter is less than 2 seconds:
       if (counter < 2) {
-
-        play_melody(melody_on, noteDurations_on, num_notes_on); //play on melody
+        //play on melody
+        play_melody(melody_on, noteDurations_on, num_notes_on); 
         delay(1000);
       }
 
-    } else {
-      //turn led off
+      //turn led on with fade
+      analogWrite(high_watt_led, counter + 1);
 
+      //delay(200);
+      Serial.println("button pressed");
+      counter++; // add to counter
+      
+    } else {
+
+      //if counter is greater than or equal to 3 seconds, play off melody 
       if (counter >= 3) {
         play_melody(melody_off, noteDurations_off, num_notes_off); //play on melody
       }
 
+      // if FSR not pressed, turn led off and reset counter
       analogWrite(high_watt_led, 0);
       counter = 0; //reset counter
     }
-
+    
+  // if light state(photores is not > 100) is very low, turn everything off
   } else {
-
+    //turn led off
     analogWrite(high_watt_led, 0);
-    beep_off();
-
   }
-
 }
 
-
-
+/* not using beep function anymore
 //function for stopping beep
 void beep_off() {
   noTone(speaker_pin);
   //Serial.println("beep off");
 }
+*/
 
 void play_melody(int mel[11], int noteD[11], int num_notes ) {
   // iterate over the notes of the melody:

@@ -1,15 +1,16 @@
-/* Key Sconce: Force Sensor + Speaker
-    03/12/19 (Tuesday)
+/* Key Sconce: Force Sensor + Speaker v2
+    03/13/19 (Wednesday)
     Emily Lin
 
     Interaction Notes:
     1. if key is on handle:
     fade light on
-    play tune on speaker
+    play on melody
 
 
     2. if key is not on handle:
     turn light off
+    play off melody
 
     3. if key is on handle, but room is dark:
     dim light so it is a night light
@@ -20,6 +21,7 @@
     Arduino, Tom Igoe
     The melody code is in the public domain. http://www.arduino.cc/en/Tutorial/Tone
 */
+
 
 #include "pitches.h"
 
