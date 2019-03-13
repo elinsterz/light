@@ -9,11 +9,11 @@
 
 
     2. if key is not on handle:
-    turn light off
+    turn light off immediately
     play off melody
 
     3. if key is on handle, but room is dark:
-    dim light so it is a night light
+    turn off light completely
 
     ----
 
