@@ -1,9 +1,5 @@
-console.log(); //global
+var sayHello = function(){
 
-setTimeout();
-clearTimeout();
+}
 
-setInterval();
-clearInterval();
-
-window
+window.sayHello();

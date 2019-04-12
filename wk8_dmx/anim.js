@@ -25,7 +25,7 @@ var sequence = DMX.Animation; // create a new animation sequence instance
 var serialPort = 	'/dev/tty.usbserial-ENY4SQVK';  // MY serial port name
 
 
-var dmxAddress = 99;     // the light's starting address
+var dmxAddress = 100;     // the light's starting address
 
 console.log('Hello World From Nodejs');
 
