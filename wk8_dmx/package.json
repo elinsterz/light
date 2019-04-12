@@ -1,0 +1,29 @@
+{
+  "name": "dmx",
+  "version": "0.2.2",
+  "author": "Sebastian Wiedenroth <wiedi@frubar.net>",
+  "description": "A nodejs DMX library",
+  "url": "https://github.com/node-dmx/dmx",
+  "scripts": {
+    "test": "node_modules/eslint/bin/eslint.js -c .eslintrc ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/node-dmx/dmx.git"
+  },
+  "keywords": [
+    "DMX",
+    "light control"
+  ],
+  "dependencies": {
+    "serialport": "^6.0.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.0.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
+  }
+}
