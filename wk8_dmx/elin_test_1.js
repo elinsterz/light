@@ -39,7 +39,7 @@ setInterval(function(){
     universe.updateAll(250);
     console.log("on");
   }
-}, 1000);
+}, 5000);
 
 
 
