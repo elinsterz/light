@@ -39,7 +39,7 @@ setInterval(function(){
     universe.updateAll(250);
     console.log("on");
   }
-}, 5000);
+}, 600);
 
 
 
@@ -59,7 +59,7 @@ function done() {
   console.log("done. Now I'll run the loop...");
   channel = 0;                          // reset channel and level
   level = 1;
-  setInterval(fade, 20);                // run the fade every 20ms
+  setInterval(fade, 200);                // run the fade every 20ms
 }
 
 // fading a channel manually:
@@ -68,7 +68,7 @@ function fade(){
   universe.update(light);               // update the light
 
   // change the level for next time:
-  if (level === 255 || level === 0) {   // if 0 or 255
+  if (level === 100 || level === 0) {   // if 0 or 255
     fadeStep = -fadeStep;               // reverse the fade direction
     console.log('loop');
   }

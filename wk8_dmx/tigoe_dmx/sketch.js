@@ -1,4 +1,14 @@
 /*
+Emily Lin
+04/12/19
+
+Notes:
+- testing Tom Igoe's sample code with DOTZ PAR light
+- changed definitions
+
+
+Credits:
+
 DMX fader board example
 context: p5.js
 Shows how to make a simple fader board  with master fader using p5.js This is a
@@ -19,9 +29,11 @@ var responseDiv;								// the div where the server response goes
 var requestDiv;									// the div where the server response goes
 var dmxAddress = 70;     		    // the light's starting address (0-indexed)
 
-// channel definitions for an Elation ProSpot LED:
+// channel definitions for an Dotz Par
 var dotzPar ={
-    
+	red: 1,
+	green: 2,
+	blue: 3
 }
 
 // channel definitions for an Elation ProSpot LED:
