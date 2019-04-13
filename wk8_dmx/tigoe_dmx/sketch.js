@@ -71,7 +71,7 @@ var DesireD40 = {		// Lustr in general HSI mode
 FixtureType = ProSpot;
 
 function setup() {
-	createCanvas(500,500);				// no canvas
+	noCanvas();				// no canvas
 	var faderPos = 0;		// horizontal starting position for each slider
 	var spacing = 40;		// spacing between sliders
 
