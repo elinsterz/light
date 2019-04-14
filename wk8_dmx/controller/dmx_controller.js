@@ -2,7 +2,7 @@
 Emily Lin
 04/13/19
 
-********
+****************
 CREDITS:
 
 DMX example
@@ -12,11 +12,15 @@ For more on the library, see https://github.com/wiedi/node-dmx
 based on the demos from the node-dmx repository
 created 20 Mar 2017
 by Tom Igoe
+
+****************
 */
 
-var DMX = require('dmx');     // include the dmx lib
-var dmx = new DMX();          // create a new control instance
-var sequence = DMX.Animation; // create a new animation sequence instance
+
+
+// var DMX = require('dmx');     // include the dmx lib
+// var dmx = new DMX();          // create a new control instance
+// var sequence = DMX.Animation; // create a new animation sequence instance
 var serialPort = '/dev/cu.usbserial-6A3L1L39';  // your serial port name
 
 var responseDiv;								// the div where the server response goes
