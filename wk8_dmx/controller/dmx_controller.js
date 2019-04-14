@@ -1,4 +1,10 @@
 /*
+Emily Lin
+04/13/19
+
+********
+CREDITS:
+
 DMX example
 context: node.js
 Shows how to use dmx library with an Enttec USB DMX Pro
@@ -13,13 +19,58 @@ var dmx = new DMX();          // create a new control instance
 var sequence = DMX.Animation; // create a new animation sequence instance
 var serialPort = '/dev/cu.usbserial-6A3L1L39';  // your serial port name
 
+var responseDiv;								// the div where the server response goes
+var requestDiv;									// the div where the server response goes
+var dmxAddress = 70;     		    // the light's starting address (0-indexed)
+
+// channel definitions for an Dotz Par
+var dotzPar = {
+	red: 1,
+	green: 2,
+	blue: 3
+}
+
 // create a new DMX universe on your serial port:
 var universe = dmx.addUniverse('mySystem',
   'enttec-usb-dmx-pro', serialPort);
 
 var channel = 0;                        // channel number
 var level = 0;                          // level
-var fadeStep = 0.5;                       // increment to fade; for manual fading
+var fadeStep = 0.5;                     // increment to fade; for manual fading
+
+// choose the type of fixture you're controlling:
+FixtureType = dotzPar;
+
+// iterate over the properities in the fixtures
+// and make a slider for each of the properties in the fixure 
+for (property in FixtureType){
+  FixtureType[property] = FixtureType[property] + dmxAddress;
+  // make a slider, name it, rotate it, and position it:
+  var mySlider = createSlider(0, 255, 0);
+  mySlider.id(property);
+  mySlider.style('transform', 'rotate(270deg)');  // rotate vertical
+  mySlider.position(spacing * faderPos , 200);// move it over horizontally
+  mySlider.changed(fade);												// give it a callback for when changed
+
+  // make a label, name it, rotate it, position it:
+  var myLabel = createSpan(property);
+  myLabel.style('transform', 'rotate(270deg)');
+  // took some fiddling to work out the length to keep the text all on one line:
+  myLabel.size(200, 30);
+  // it took some fiddling to get this positioning, especially since the objects
+  // are rotated:
+  myLabel.position(mySlider.x - mySlider.height*2, 20);
+
+  // make a level label, set its value, and position it:
+  var myLevel = createSpan(mySlider.value());
+  // this position took fiddling to get right:
+  myLevel.position(mySlider.x + spacing*1.6, 280);
+  // give it a class so you can update it later:
+  myLevel.class(property);
+
+  faderPos++;																	// incement position for next fader
+}
+
 
 // turn everything off:
 for (channel=0; channel < 256; channel++) {
