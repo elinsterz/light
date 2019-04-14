@@ -1,44 +1,29 @@
 /*
-Emily Lin
-04/12/19
-
-Notes:
-- testing Tom Igoe's sample code with DOTZ PAR light
-- changed definitions
-
-
-Credits:
-
 DMX fader board example
 context: p5.js
+
 Shows how to make a simple fader board  with master fader using p5.js This is a
 web client that sends HTTP GET requests for /set/channel/level
+
 You can choose the DMX channels you want by replacing the ProSpot variable with
 your own light's definitions. You'll need to set the base DMX address for the
 light in dmxAddress, and then define the light by the function name and the
 channel, as you see in the ProSpot example.
+
 This is by no means universal, but it illustrates another approach to making
 a DMX-driven client interface. This is probably simpler than the master-fader-panel.js
 example, also in this folder.
+
 created 12 June 2017
 by Tom Igoe
 */
 
-var url = '/dev/tty.usbserial-6A3L1L39';		// the route to set a DMX channel in the server
+var url = '/set';								// the route to set a DMX channel in the server
 var responseDiv;								// the div where the server response goes
 var requestDiv;									// the div where the server response goes
-var dmxAddress = 70;     		    // the light's starting address (0-indexed)
-
-// channel definitions for an Dotz Par
-var dotzPar = {
-	red: 1,
-	green: 2,
-	blue: 3
-}
+var dmxAddress = 100;     		    // the light's starting address (0-indexed)
 
 // channel definitions for an Elation ProSpot LED:
-
-/*
 var ProSpot = {
 	pan:1,
 	tilt:3,
@@ -53,9 +38,7 @@ var ProSpot = {
 	intensity:18,
 	iris:19
 };
-*/
 
-/*
 var Source4Lustr = {		// Lustr in general HSI mode
 	Hue: 1,
 	HueFine: 2,
@@ -64,21 +47,18 @@ var Source4Lustr = {		// Lustr in general HSI mode
 	Strobe: 5,
 	Fan:6
 };
-*/
 
-/*
 var DesireD40 = {		// Lustr in general HSI mode
 	Intensity: 1,
 	Strobe: 2,
 	Fan: 3
 };
-*/
 
 // choose the type of fixture you're controlling:
-FixtureType = dotzPar;
+FixtureType = ProSpot;
 
 function setup() {
-	createCanvas(500,500);				// no canvas
+	noCanvas();					// no canvas
 	var faderPos = 0;		// horizontal starting position for each slider
 	var spacing = 40;		// spacing between sliders
 
@@ -91,7 +71,7 @@ function setup() {
 		mySlider.id(property);
 		mySlider.style('transform', 'rotate(270deg)');  // rotate vertical
 		mySlider.position(spacing * faderPos , 200);// move it over horizontally
-		mySlider.changed(fade);												// give it a callback for when changed
+		mySlider.changed(fade);													// give it a callback for when changed
 
 		// make a label, name it, rotate it, position it:
 		var myLabel = createSpan(property);

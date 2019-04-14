@@ -1,8 +1,10 @@
 /*
 DMX example
 context: node.js
+
 Shows how to use dmx library with an Enttec USB DMX Pro
 For more on the library, see https://github.com/wiedi/node-dmx
+
 based on the demos from the node-dmx repository
 created 20 Mar 2017
 by Tom Igoe
@@ -11,7 +13,7 @@ by Tom Igoe
 var DMX = require('dmx');     // include the dmx lib
 var dmx = new DMX();          // create a new control instance
 var sequence = DMX.Animation; // create a new animation sequence instance
-var serialPort = '/dev/cu.usbserial-6A3L1L39';  // your serial port name
+var serialPort = '/dev/cu.usbserial-EN193040';  // your serial port name
 
 // create a new DMX universe on your serial port:
 var universe = dmx.addUniverse('mySystem',
@@ -19,7 +21,7 @@ var universe = dmx.addUniverse('mySystem',
 
 var channel = 0;                        // channel number
 var level = 0;                          // level
-var fadeStep = 0.5;                       // increment to fade; for manual fading
+var fadeStep = 1;                       // increment to fade; for manual fading
 
 // turn everything off:
 for (channel=0; channel < 256; channel++) {
@@ -27,72 +29,19 @@ for (channel=0; channel < 256; channel++) {
   universe.update(light);               // set channel to 0
 }
 
+
 var on = false;
 setInterval(function(){
   if(on){
     on = false;
-    universe.update({[70]: 120}); 
+    universe.updateAll(0);
     console.log("off");
   }else{
     on = true;
-    universe.update({[70]: 0});
+    universe.updateAll(250);
     console.log("on");
   }
-}, 5000);
-
-//slider variables
-var rSlider, gSlider, bSlider;
-
-//position of splider
-var pos_x = 20;
-var pos_y = 20;
-var space = 20;
-
-function setup(){
-  
- createCanvas(500,500);
-
-  rSlider = createSlider(0, 255, 255);
-  rSlider.position(20, 20);
-  gSlider = createSlider(0, 255, 255);
-  gSlider.position(20, 40);
-  bSlider = createSlider(0, 255, 255);
-  bSlider.position(20, 60);
-}
-
-function draw(){
-  background (200);
-
-  const r = rSlider.value();
-  const g = gSlider.value();
-  const b = bSlider.value();
-
-  //red rectangle
-  fill(r, 0, 0);
-  rect(0, 0, width, height/3);
-
-  //green rectangle
-  fill(0, g, 0);
-  rect(0, height/3, width, height/3);
-  
-  //blue rectangle
-  fill(0, 0, b);
-  rect(0, 2*(height/3), width, height/3);
-}
-
-
-// var on = false;
-// setInterval(function(){
-//   if(on){
-//     on = false;
-//     universe.updateAll(0);
-//     console.log("off");
-//   }else{
-//     on = true;
-//     universe.updateAll(250);
-//     console.log("on");
-//   }
-// }, 5000);
+}, 1000);
 
 
 
@@ -107,7 +56,7 @@ function draw(){
 //   .add({4: 0}, 2000)                    // fade channel 0 to 0, 5 seconds
 //   .delay(2000);                         // delay 2 seconds
 // cue.run(universe, done);                // run the cue, then callback
-
+//
 function done() {
   console.log("done. Now I'll run the loop...");
   channel = 0;                          // reset channel and level
