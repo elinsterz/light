@@ -35,33 +35,6 @@ for (channel=0; channel < 256; channel++) {
 }
 
 
-// var on = false;
-// setInterval(function(){
-//   if(on){
-//     on = false;
-//     universe.update({70: 100, 71: 0, 72: 0});
-//     console.log("off");
-//   }else{
-//     on = true;
-//     universe.update({70: 20, 71: 150, 72: 150});
-//     console.log("on");
-//   }
-// }, 1000);
-
-
-//Previous code for just turning on and off
-// var on = false;
-// setInterval(function(){
-//   if(on){
-//     on = false;
-//     universe.updateAll(0);
-//     console.log("off");
-//   }else{
-//     on = true;
-//     universe.updateAll(250);
-//     console.log("on");
-//   }
-// }, 1000);
 
 
 //running a sequence using Animation:
@@ -74,17 +47,7 @@ cue_1.add({71: 255}, 1000,['inBack'])
   .delay(2000);
 cue_1.run(universe, done);
 
-//running a sequence using Animation:
-// console.log("running a 12-second animation...");
-// var cue = new sequence();
-// // cue.add({1: 255}, 1);                 // fade channel 0 to 255, 5 seconds
-// // cue.add({70: 255}, 1);                 // fade channel 0 to 255, 5 seconds
-// //cue.add({70: 255}, 1);                 // fade channel 0 to 255, 5 seconds
-// cue.add({71: 255}, 1)                 // fade channel 0 to 255, 5 seconds
-//   .delay(2000)                          // delay 2 seconds
-//   .add({72: 0}, 2000)                    // fade channel 0 to 0, 5 seconds
-//   .delay(2000);                         // delay 2 seconds
-// cue.run(universe, done);                // run the cue, then callback
+
 
 function done() {
   console.log("done. Now I'll run the loop...");
@@ -134,3 +97,46 @@ process.stdin.resume();
 process.on('SIGINT', quit);             // catch ctrl+c:
 process.on('uncaughtException', quit);  //catch uncaught exceptions
 process.on('beforeExit', quit);         // catch the beforeExit message
+
+
+
+
+// var on = false;
+// setInterval(function(){
+//   if(on){
+//     on = false;
+//     universe.update({70: 100, 71: 0, 72: 0});
+//     console.log("off");
+//   }else{
+//     on = true;
+//     universe.update({70: 20, 71: 150, 72: 150});
+//     console.log("on");
+//   }
+// }, 1000);
+
+
+//Previous code for just turning on and off
+// var on = false;
+// setInterval(function(){
+//   if(on){
+//     on = false;
+//     universe.updateAll(0);
+//     console.log("off");
+//   }else{
+//     on = true;
+//     universe.updateAll(250);
+//     console.log("on");
+//   }
+// }, 1000);
+
+//running a sequence using Animation:
+// console.log("running a 12-second animation...");
+// var cue = new sequence();
+// // cue.add({1: 255}, 1);                 // fade channel 0 to 255, 5 seconds
+// // cue.add({70: 255}, 1);                 // fade channel 0 to 255, 5 seconds
+// //cue.add({70: 255}, 1);                 // fade channel 0 to 255, 5 seconds
+// cue.add({71: 255}, 1)                 // fade channel 0 to 255, 5 seconds
+//   .delay(2000)                          // delay 2 seconds
+//   .add({72: 0}, 2000)                    // fade channel 0 to 0, 5 seconds
+//   .delay(2000);                         // delay 2 seconds
+// cue.run(universe, done);                // run the cue, then callback
