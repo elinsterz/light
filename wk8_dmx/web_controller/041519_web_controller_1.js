@@ -1,7 +1,12 @@
 /*
-DMX example
+Emily Lin
+04/15/19
+
+Notes:
+Code edited from DMX examples
 context: node.js
 
+Credits: 
 Shows how to use dmx library with an Enttec USB DMX Pro
 For more on the library, see https://github.com/wiedi/node-dmx
 
