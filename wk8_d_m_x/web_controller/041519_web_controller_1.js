@@ -48,26 +48,24 @@ cue_1.add({70: 255, 71: 190, 72:175}, 500,['inBack']) //inBack one of the dmx ea
   .add({70: 255, 71: 140, 72:25},1000,['inExpo']);
 //cue_1.run(universe, done);
 
+
 var cue_2 = new sequence();
-cue_2.add({71: 200, 72:50}, 500,['inExpo'])  //easing option
-  .delay(500)
-  .add({71: 10, 72: 0},500,['inExpo']);
-
-
-
-var cue_3 = new sequence();
-cue_3.add({70: 255}, 100,['inOutBounce'])  
+cue_2.add({70: 255}, 100,['inOutBounce'])  
   .add({71: 255},100,['inOutBounce'])
   .delay(1000);
 
 
+var cue_3 = new sequence();
+cue_3.add({70: 255, 71:144, 72:0}, 500,['inExpo'])  //easing option
+  .delay(500)
+  .add({70: 58, 71:150, 72:235},500,['inExpo']);
+
+
 var cue_4 = new sequence();
-cue_4.add({70: 255}, 2000,['inElastic'])  
-  .add({72: 255},2000,['inElastic'])
-  .delay(2000)
-  .add({72: 100},2000,['inElastic'])
+cue_4.add({70: 10, 71:179, 72:193}, 2000,['inElastic'])  
+  .add({71: 50},1000,['inElastic'])
   .delay(1000)
-  .add({72: 255},200,['inElastic']);
+  .add({72: 50},1000,['inElastic']);
 
 //array for all cue sequences
 var cue_lib = [cue_1, cue_2, cue_3, cue_4];
