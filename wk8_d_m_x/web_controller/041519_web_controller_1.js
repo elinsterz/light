@@ -34,9 +34,6 @@ for (channel=0; channel < 256; channel++) {
   universe.update(light);               // set channel to 0
 }
 
-
-
-
 //running a sequence using Animation:
 console.log("The animation begings here!!!");
 var cue_1 = new sequence();
@@ -96,8 +93,6 @@ process.stdin.resume();
 process.on('SIGINT', quit);             // catch ctrl+c:
 process.on('uncaughtException', quit);  //catch uncaught exceptions
 process.on('beforeExit', quit);         // catch the beforeExit message
-
-
 
 
 // var on = false;
