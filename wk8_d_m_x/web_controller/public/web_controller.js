@@ -75,10 +75,10 @@ function checkLocation(xloc, yloc, j) {
       //if box turns white from color then send a command to stop
       if (comp_test == false) {
         col_arr_0[j] = col_arr[j];
-        httpGet('/set/'+ 71 + '/'+ 255, foo("Turn On!"));
+        httpGet('/set/'+ j + '/'+ j, foo("Turn On!"));
       } else {
         col_arr_0[j] = [255, 255, 255];
-        httpGet('/set/'+ 71 + '/'+ 0, foo("Turn Off!"));
+        httpGet('/set/'+ 4 + '/'+ 4, foo("Turn Off!"));
       }
     }
   }

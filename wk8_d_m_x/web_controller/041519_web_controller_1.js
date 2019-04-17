@@ -31,6 +31,7 @@ var channel = 0;                        // channel number
 var level = 0;                          // level
 var fadeStep = 1;                       // increment to fade; for manual fading
 
+
 // turn everything off:
 for (channel=0; channel < 256; channel++) {
   var light = {[channel]: level};       // make an object
@@ -38,17 +39,38 @@ for (channel=0; channel < 256; channel++) {
 }
 
 //running a sequence using Animation:
-console.log("The animation begings here!!!");
+
 var cue_1 = new sequence();
 // animation.add(to, duration in ms, options for easing in ['linear'] format)
 // animation.add (to, duration, options)
-cue_1.add({71: 255}, 1000,['inBack']) 
-  .delay(2000)
-  .add({72: 255},1000,['inExpo'])
-  .delay(2000);
+cue_1.add({70: 255, 71: 190, 72:175}, 500,['inBack']) //inBack one of the dmx easing options
+  .delay(1000)
+  .add({70: 255, 71: 140, 72:25},1000,['inExpo']);
 //cue_1.run(universe, done);
 
+var cue_2 = new sequence();
+cue_2.add({71: 200, 72:50}, 500,['inExpo'])  //easing option
+  .delay(500)
+  .add({71: 10, 72: 0},500,['inExpo']);
 
+
+
+var cue_3 = new sequence();
+cue_3.add({70: 255}, 100,['inOutBounce'])  
+  .add({71: 255},100,['inOutBounce'])
+  .delay(1000);
+
+
+var cue_4 = new sequence();
+cue_4.add({70: 255}, 2000,['inElastic'])  
+  .add({72: 255},2000,['inElastic'])
+  .delay(2000)
+  .add({72: 100},2000,['inElastic'])
+  .delay(1000)
+  .add({72: 255},200,['inElastic']);
+
+//array for all cue sequences
+var cue_lib = [cue_1, cue_2, cue_3, cue_4];
 
 function done() {
   console.log("done. Now I'll run the loop...");
@@ -71,6 +93,15 @@ function fade(){
 }
 
 
+function blackout(callback) {
+  for (c=0; c < 256; c++) {
+    var channel = {[c]: 0};       // make an object
+    universe.update(channel);     // set channel to 0
+  }
+  callback;
+}
+
+
 //----------------------------------------------------
 // from Tom's simpleBoardServer.js example
 //----------------------------------------------------
@@ -80,7 +111,13 @@ function setChannel(request, response) {
   var channel = request.params.channel;
   var level = request.params.level;
   // set channel (most DMX systems are 1-indexed, but this library is 0-indexed):
-  universe.update({[channel-1]:level});
+  // universe.update({[channel-1]:level});
+  if (channel <= 3){
+    cue_lib[channel].run(universe,blackout());
+
+  } else if (channel == 4) {
+    blackout();
+  }
   response.end('set ' + channel + ' to ' + level);
 }
 
@@ -104,13 +141,13 @@ function quit(error) {
   setTimeout(process.exit, 1000);     // avter 1 second, quit
 }
 
-function blackout(callback) {
-  for (c=0; c < 256; c++) {
-    var channel = {[c]: 0};       // make an object
-    universe.update(channel);     // set channel to 0
-  }
-  callback;
-}
+// function blackout(callback) {
+//   for (c=0; c < 256; c++) {
+//     var channel = {[c]: 0};       // make an object
+//     universe.update(channel);     // set channel to 0
+//   }
+//   callback;
+// }
 
 var exitFunction = blackout;
 
@@ -149,15 +186,3 @@ process.on('beforeExit', quit);         // catch the beforeExit message
 //     console.log("on");
 //   }
 // }, 1000);
-
-//running a sequence using Animation:
-// console.log("running a 12-second animation...");
-// var cue = new sequence();
-// // cue.add({1: 255}, 1);                 // fade channel 0 to 255, 5 seconds
-// // cue.add({70: 255}, 1);                 // fade channel 0 to 255, 5 seconds
-// //cue.add({70: 255}, 1);                 // fade channel 0 to 255, 5 seconds
-// cue.add({71: 255}, 1)                 // fade channel 0 to 255, 5 seconds
-//   .delay(2000)                          // delay 2 seconds
-//   .add({72: 0}, 2000)                    // fade channel 0 to 0, 5 seconds
-//   .delay(2000);                         // delay 2 seconds
-// cue.run(universe, done);                // run the cue, then callback
