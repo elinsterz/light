@@ -6,7 +6,7 @@
   "dependencies": {
     "dmx": "*",
     "express": "*",
-    "open": "^0.0.5"
+    "open": "0.0.5"
   },
   "devDependencies": {},
   "scripts": {

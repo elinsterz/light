@@ -26,12 +26,7 @@ let col_arr = [
 
 
 function setup() {
-  //createCanvas(canvas_width, canvas_height);
-  
-  var cnv = createCanvas(canvas_width, canvas_height);
-  var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  cnv.position(x, y);
+  createCanvas(canvas_width, canvas_height);
 }
 
 function draw() {
@@ -55,7 +50,7 @@ function mousePressed() {
     
     // send messages to the DMX light at this point to 
     // change the light animation
-    // [0,0,0] would be equivalent to turning everything off;
+    // [0,0,0] would turn everything off;
     
   }
 }
@@ -80,16 +75,17 @@ function checkLocation(xloc, yloc, j) {
       //if box turns white from color then send a command to stop
       if (comp_test == false) {
         col_arr_0[j] = col_arr[j];
-        httpGet('/set/'+ j + '/'+ j, foo);
+        httpGet('/set/'+ 71 + '/'+ 255, foo("Turn On!"));
       } else {
         col_arr_0[j] = [255, 255, 255];
+        httpGet('/set/'+ 71 + '/'+ 0, foo("Turn Off!"));
       }
     }
   }
 
 
-function foo(){
-  console.log("foo here")
+function foo(info_msg){
+  console.log(info_msg)
 }
 
 
@@ -111,19 +107,5 @@ function arr_comp(arr1,arr2){
   
 }
   return true;
-}
-
-
-function centerCanvas() {
-  var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  cnv.position(x, y);
-}
-
-
-
-//centers canvas
-function windowResized() {
-  centerCanvas();
 }
 
