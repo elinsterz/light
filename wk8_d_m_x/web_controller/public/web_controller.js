@@ -4,7 +4,6 @@ let canvas_height = 200;
 let angle = 0;
 
 //buttons
-
 let btn_width = canvas_width / 4;
 let btn_height = canvas_height;
 
@@ -40,7 +39,6 @@ function draw() {
   background(225);
   //rectMode(CENTER);
 
-
   for (let i = 0; i < 4; i++) {
     stroke(0);
     strokeWeight(2);
@@ -57,7 +55,7 @@ function mousePressed() {
     
     // send messages to the DMX light at this point to 
     // change the light animation
-    // [0,0,0] would be equivalent to ctrl + c;
+    // [0,0,0] would be equivalent to turning everything off;
     
   }
 }
@@ -77,9 +75,12 @@ function checkLocation(xloc, yloc, j) {
     let comp_test = arr_comp(col_arr_0[j], col_arr[j]);      
     console.log(comp_test);
       
-      //if mouse is over quadrant and it is black, then go through color array
+      //if mouse is over quadrant and it is white, then go through color array
+      //compares 2 arrays, if box color turns to color send an animation command
+      //if box turns white from color then send a command to stop
       if (comp_test == false) {
         col_arr_0[j] = col_arr[j];
+        httpGet('/set/'+ j + '/'+ j, foo);
       } else {
         col_arr_0[j] = [255, 255, 255];
       }
@@ -87,7 +88,9 @@ function checkLocation(xloc, yloc, j) {
   }
 
 
-// Reacts to the pressing of the mouse if it is within the right coordinate range
+function foo(){
+  console.log("foo here")
+}
 
 
 
