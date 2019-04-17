@@ -1,45 +1,84 @@
+/*
+Emily Lin
+04/16/19
+
+Notes: Web Controller for DMX Lights Dotz Par
+
+*/
+
+
 let canvas_width = 800;
 let canvas_height = 200;
 
-let angle = 0;
 
-//buttons
+let myFont;
+
+function preload() {
+  myFont = loadFont("bb-book-contrasted.otf");
+}
+
+//buttons width are 1/4 canvas size, button's height is canvas height
 let btn_width = canvas_width / 4;
 let btn_height = canvas_height;
 
+//x and y location of button
 let btn_x = [0, canvas_width * 0.25, canvas_width * 0.5, canvas_width * 0.75];
 let btn_y = [0, 0, 0, 0];
 
+//white when not not pressed
 let col_arr_0 = [
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0]
+];
+
+//the 4 white buttons when pressed
+let col_arr = [
   [255, 255, 255],
   [255, 255, 255],
   [255, 255, 255],
   [255, 255, 255]
 ];
 
+/*
+//the 4 button different colors when pressed
 let col_arr = [
-  [255, 255, 10],
-  [214, 0, 229],
-  [221, 255, 0],
-  [35, 9, 234]
+  [255, 209, 250],
+  [0, 242, 52],
+  [230, 40, 0],
+  [48, 64, 242]
 ];
+*/
 
 
 function setup() {
-  createCanvas(canvas_width, canvas_height);
+  let canvas = createCanvas(canvas_width, canvas_height);
+
+  // Move the canvas so it’s inside our <div id="sketch-holder">.
+  canvas.parent('sketch-holder');
 }
 
 function draw() {
+//background(225);
 
-  background(225);
-  //rectMode(CENTER);
-
+//creates 4 buttons on the page
   for (let i = 0; i < 4; i++) {
-    stroke(0);
+    stroke(255);
     strokeWeight(2);
     fill(col_arr_0[i]);
     rect(btn_x[i], btn_y[i], btn_width, btn_height);
   }
+
+/*
+  //text in canvas option
+  textAlign(CENTER);
+  textFont(myFont);
+  fill(0);
+  textSize(72);
+  textFont(myFont);
+  text("Seasons", canvas_width/2, canvas_height/2);
+*/
 }
 
 function mousePressed() {
@@ -77,7 +116,7 @@ function checkLocation(xloc, yloc, j) {
         col_arr_0[j] = col_arr[j];
         httpGet('/set/'+ j + '/'+ j, foo("Turn On!"));
       } else {
-        col_arr_0[j] = [255, 255, 255];
+        col_arr_0[j] = [0, 0, 0];
         httpGet('/set/'+ 4 + '/'+ 4, foo("Turn Off!"));
       }
     }
