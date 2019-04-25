@@ -1,6 +1,10 @@
-
 /*Emily Lin
+ * CO2 Light 
    04/24/19
+
+   Notes: 
+   - Trying to get CO2 readings to write onto SD Card: "CO2LIGHT"
+   - SD CARD pin select: ??
 
    Credits:
    - Tom Igoe |  MKR Dataset Examples (https://github.com/tigoe/DataloggingExamples/blob/master/MKR_examples/MKR_Datestamped_Files/MKR_Datestamped_Files.ino_
@@ -30,6 +34,8 @@
 #include "Adafruit_CCS811.h"
 #include <SD.h>
 #include <RTCZero.h>
+#include <SPI.h>
+
 
 
 
@@ -43,13 +49,18 @@ const int SD_CHIP_SELECT = 4;
 //whether or not the SD card initialized:
 bool SDAvailable = false;
 //name of the file to write to:
-String logFile;
+String logFile = "DATALOG.CSV";
 
 long timestamp = 0;  // timestamp for SD logging, in ms
 int interval = 1000;  // logging interval in ms
 
 //init realtimeclock:
 RTCZero rtc;
+
+// set up variables using the SD utility library functions:
+Sd2Card card;
+SdVolume volume;
+SdFile root;
 
 
 void setup() {
@@ -59,6 +70,22 @@ void setup() {
 
   //initialize the realtimeclock:
   rtc.begin();
+
+  // initialize SD card:
+  SDAvailable = SD.begin(SD_CHIP_SELECT);
+  Serial.println("Card working: " + String(SDAvailable));
+
+  // we'll use the initialization code from the utility libraries
+  // since we're just testing if the card is working!
+  if (!card.init(SPI_HALF_SPEED, SD_CHIP_SELECT)) {
+    Serial.println("initialization failed. Things to check:");
+    Serial.println("* is a card inserted?");
+    Serial.println("* is your wiring correct?");
+    Serial.println("* did you change the chipSelect pin to match your shield or module?");
+    while (1);
+  } else {
+    Serial.println("Wiring is correct and a card is present.");
+  }
 
   if (!ccs.begin()) {
     Serial.println("Failed to start sensor! Please check your wiring.");
@@ -70,7 +97,6 @@ void setup() {
   float temp = ccs.calculateTemperature();
   ccs.setTempOffset(temp - 25.0);
 
-
   //set time and date from the compiler:
   setTimeFromCompile();
   setDateFromCompile();
@@ -78,18 +104,13 @@ void setup() {
   //get file name from date:
   logFile = fileNameFromDate();
 
-  // initialize SD card:
-  bool SDAvailable = SD.begin(SD_CHIP_SELECT);
-  Serial.println("Card working: " + String(SDAvailable));
-  if (SDAvailable) {
-    String logFile = "C02LIGHT.CSV";
-    File dataFile = SD.open(logFile, FILE_WRITE);
-    if (dataFile) {
-      dataFile.println("Writing to the file");
-      dataFile.close();
-    }
+  
+  // print a header to the SD card file:
+  File dataFile = SD.open(logFile, FILE_WRITE);
+  if (dataFile) {
+    dataFile.println("Battery voltage:,%:, elapsed seconds:");
+    dataFile.close();
   }
-
 }
 
 void loop() {
@@ -101,7 +122,7 @@ void loop() {
       Serial.print("ppm, TVOC: ");
       Serial.print(ccs.getTVOC());
       Serial.print("ppb   Temp:");
-      //Serial.print(temp);
+      Serial.println(temp);
     }
     else {
       Serial.println("ERROR!");
@@ -149,7 +170,7 @@ String fileNameFromDate(){
 //set the rtc time from the compile time:
 void setTimeFromCompile(){
   //get the compile time string:
-  String compileTime = String(__TIME__));
+  String compileTime = String(__TIME__);
 
   //break the compile time on the colons:
   int h = compileTime.substring(0,2).toInt();
