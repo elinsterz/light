@@ -38,6 +38,7 @@
 
 
 
+
 Adafruit_CCS811 ccs;
 
 // The chip select pin
@@ -107,7 +108,7 @@ void setup() {
   // print a header to the SD card file:
   File dataFile = SD.open(logFile, FILE_WRITE);
   if (dataFile) {
-    dataFile.println("CO2/ ppm, elapsed seconds:");
+    dataFile.println("Battery voltage:,%:, elapsed seconds:");
     dataFile.close();
   }
 }

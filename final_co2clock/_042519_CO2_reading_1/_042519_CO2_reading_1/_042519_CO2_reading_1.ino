@@ -38,6 +38,7 @@
 
 
 
+
 Adafruit_CCS811 ccs;
 
 // The chip select pin
@@ -63,6 +64,34 @@ SdFile root;
 
 
 void setup() {
+  
+  Serial.begin(9600);
+  // wait until serial monitor is open:
+  while (!Serial);
+  // initialize SD card:
+  SDAvailable = SD.begin(SD_CHIP_SELECT);
+  Serial.println("Card working: " + String(SDAvailable));
+  // print a header to the SD card file:
+  File dataFile = SD.open(logFile, FILE_WRITE);
+  if (dataFile) {
+  dataFile.println("C02 ppm:");
+  dataFile.close();
+
+
+  //calibrate temperature sensor
+  while (!ccs.available());
+  float temp = ccs.calculateTemperature();
+  ccs.setTempOffset(temp - 25.0);
+
+  //set time and date from the compiler:
+  setTimeFromCompile();
+  setDateFromCompile();
+
+  //get file name from date:
+  logFile = fileNameFromDate();
+  }
+}
+  /*
   Serial.begin(9600);
 
   Serial.println("CCS811 test");
@@ -107,10 +136,12 @@ void setup() {
   // print a header to the SD card file:
   File dataFile = SD.open(logFile, FILE_WRITE);
   if (dataFile) {
-    dataFile.println("CO2/ ppm, elapsed seconds:");
+    dataFile.println("Battery voltage:,%:, elapsed seconds:");
     dataFile.close();
   }
-}
+
+  */
+
 
 void loop() {
   if (ccs.available()) {
