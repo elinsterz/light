@@ -1,5 +1,5 @@
 /* Emily Lin
- *  04/28/19
+ *  05/04/19
  * 
  * Notes: 
  * - The power supplied can be no more than 2.8 - 3.3V
@@ -30,10 +30,13 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Stepper test!");
   // set the speed of the motor to 30 RPMS
+  // set speed between 10-150 is ideal
   stepper.setSpeed(50);
 }
 
 void loop() {
+
+  //stepper step between 10-20 is ideal
   Serial.println("Forward");
   stepper.step(10);
   //Serial.println("Backward");
