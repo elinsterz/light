@@ -30,8 +30,9 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Stepper test!");
   // set the speed of the motor to 30 RPMS
-  // set speed between 10-150 is ideal
-  stepper.setSpeed(50);
+  // set speed between 10-150 is ideal, power supply needs to be 4.5V
+  // for speed above 150, power needs to be higher and it needs a separate power supply
+  stepper.setSpeed(150);
 }
 
 void loop() {
