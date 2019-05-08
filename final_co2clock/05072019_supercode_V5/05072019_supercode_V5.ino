@@ -118,7 +118,7 @@ void loop() {
     array_swap(medium_CO2, current_col);
     Serial.println("medium");
 
-  } else if (6000 <= CO2_read && CO2_read < 800 ) {
+  } else if (6000 <= CO2_read && CO2_read < 8000 ) {
     array_swap(medHigh_CO2, current_col);
     Serial.println("medium High");
 
