@@ -100,7 +100,6 @@ void loop() {
 
 
 
-
   //Decide the color based on CO2 readings
   if (CO2_read < 700) {
     array_swap(veryLow_CO2, current_col);
